@@ -68,13 +68,29 @@ end
 function M.clean()
   local neoconf = require("neoconf")
   local cmd = neoconf.get("build.clean.cmd")
-  local dir = neoconf.get("build.dir")
+  local dir = neoconf.get("build.clean.dir")
   if not dir then
     dir = "."
   end
 
   if not cmd then
     vim.notify("No clean command found in NeoConf", vim.log.levels.ERROR)
+    return
+  end
+
+  vim.cmd("Exec " .. command(cmd, dir))
+end
+
+function M.config()
+  local neoconf = require("neoconf")
+  local cmd = neoconf.get("build.config.cmd")
+  local dir = neoconf.get("build.config.dir")
+  if not dir then
+    dir = "."
+  end
+
+  if not cmd then
+    vim.notify("No config command found in NeoConf", vim.log.levels.ERROR)
     return
   end
 
