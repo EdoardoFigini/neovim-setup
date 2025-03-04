@@ -4,8 +4,20 @@ local function command(cmd, dir)
   return "cd " .. dir .. " && " .. cmd .. ' && cd  "' .. vim.fn.getcwd() .. '"'
 end
 
+local neoconf = require("neoconf")
+local execenv = require("user.execenv")
+
+local function set_execenv()
+  local env = neoconf.get("build.execenv")
+
+  if not env then return end
+
+  if execenv.current ~= env then
+    vim.cmd("SetExecEnv " .. env)
+  end
+end
+
 function M.build()
-  local neoconf = require("neoconf")
   local cmd = neoconf.get("build.cmd")
   local dir = neoconf.get("build.dir")
   if not dir then
@@ -17,11 +29,11 @@ function M.build()
     return
   end
 
+  set_execenv()
   vim.cmd("Exec " .. command(cmd, dir))
 end
 
 function M.run()
-  local neoconf = require("neoconf")
   local cmd = neoconf.get("build.run.cmd")
   local dir = neoconf.get("build.run.dir")
   if not dir then
@@ -33,11 +45,11 @@ function M.run()
     return
   end
 
+  set_execenv()
   vim.cmd("Exec " .. command(cmd, dir))
 end
 
 function M.build_and_run()
-  local neoconf = require("neoconf")
   local build_cmd = neoconf.get("build.cmd")
   local run_cmd = neoconf.get("build.run.cmd")
   local bdir = neoconf.get("build.dir")
@@ -62,11 +74,11 @@ function M.build_and_run()
   local build = command(build_cmd, bdir)
   local run = command(run_cmd, rdir)
 
+  set_execenv()
   vim.cmd("Exec " .. build .. " && " .. run)
 end
 
 function M.clean()
-  local neoconf = require("neoconf")
   local cmd = neoconf.get("build.clean.cmd")
   local dir = neoconf.get("build.clean.dir")
   if not dir then
@@ -78,11 +90,11 @@ function M.clean()
     return
   end
 
+  set_execenv()
   vim.cmd("Exec " .. command(cmd, dir))
 end
 
 function M.config()
-  local neoconf = require("neoconf")
   local cmd = neoconf.get("build.config.cmd")
   local dir = neoconf.get("build.config.dir")
   if not dir then
@@ -94,6 +106,7 @@ function M.config()
     return
   end
 
+  set_execenv()
   vim.cmd("Exec " .. command(cmd, dir))
 end
 

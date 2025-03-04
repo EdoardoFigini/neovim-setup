@@ -1,5 +1,7 @@
 local M = {}
 
+M.current = "pwsh"
+
 function M.msvc()
   vim.opt.shell = "cmd.exe"
   vim.opt.shellredir = "> %s"
@@ -8,6 +10,7 @@ function M.msvc()
   vim.opt.shellxquote = ""
   vim.opt.shellcmdflag =
     '/c "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat" -arch=x64 -host_arch=x64 && '
+  M.current = "msvc"
   vim.notify("Execution environment set to MSVC")
 end
 
@@ -18,6 +21,7 @@ function M.pwsh()
   vim.opt.shellquote = ""
   vim.opt.shellxquote = ""
   vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command $PSStyle.OutputRendering = 'Ansi'; "
+  M.current = "pwsh"
   vim.notify("Execution environment set to Powershell 7")
 end
 
@@ -28,6 +32,7 @@ function M.cmd()
   vim.opt.shellquote = ""
   vim.opt.shellxquote = ""
   vim.opt.shellcmdflag = "/c "
+  M.current = "cmd"
   vim.notify("Execution environment set to cmd.exe")
 end
 
@@ -38,7 +43,24 @@ function M.wsl()
   vim.opt.shellquote = ""
   vim.opt.shellxquote = ""
   vim.opt.shellcmdflag = "-e bash -c "
+  M.current = "wsl"
   vim.notify("Execution environment set to WSL")
 end
+
+vim.api.nvim_create_user_command("SetExecEnv", function(opts)
+  local arg = opts.fargs[1]
+  if arg == "msvc" then
+    M.msvc()
+  elseif arg == "pwsh" then
+    M.pwsh()
+  elseif arg == "cmd" then
+    M.cmd()
+  elseif arg == "wsl" then
+    M.wsl()
+  else
+    vim.notify("No execution environment for " .. arg, vim.log.levels.ERROR)
+  end
+end
+, { nargs = 1 })
 
 return M
