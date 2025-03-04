@@ -10,11 +10,6 @@ vim.keymap.set("n", "<leader>hc", execenv.cmd, { desc = "Command Prompt executio
 vim.keymap.set("n", "<leader>hl", execenv.wsl, { desc = "Linux (WSL) execution environment" })
 
 local build = require("user.build")
-vim.api.nvim_create_user_command("BuildProject", build.build, {})
-vim.api.nvim_create_user_command("RunProject", build.run, {})
-vim.api.nvim_create_user_command("BuildAndRunProject", build.build_and_run, {})
-vim.api.nvim_create_user_command("CleanProject", build.clean, {})
-vim.api.nvim_create_user_command("ConfigProject", build.config, {})
 vim.keymap.set("n", "<leader>B", "", { desc = "Build Project" })
 vim.keymap.set("n", "<leader>Bb", build.build, { desc = "Build Project" })
 vim.keymap.set("n", "<leader>Br", build.run, { desc = "Run Project" })

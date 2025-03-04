@@ -97,4 +97,10 @@ function M.config()
   vim.cmd("Exec " .. command(cmd, dir))
 end
 
+vim.api.nvim_create_user_command("BuildProject", M.build, {})
+vim.api.nvim_create_user_command("RunProject", M.run, {})
+vim.api.nvim_create_user_command("BuildAndRunProject", M.build_and_run, {})
+vim.api.nvim_create_user_command("CleanProject", M.clean, {})
+vim.api.nvim_create_user_command("ConfigProject", M.config, {})
+
 return M
