@@ -9,7 +9,7 @@ function M.msvc()
   vim.opt.shellquote = ""
   vim.opt.shellxquote = ""
   vim.opt.shellcmdflag =
-    '/c "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat" -arch=x64 -host_arch=x64 && '
+    '/c "%LOCALAPPDATA%\\nvim\\files\\msvc_launch.bat" && '
   M.current = "msvc"
   vim.notify("Execution environment set to MSVC")
 end
