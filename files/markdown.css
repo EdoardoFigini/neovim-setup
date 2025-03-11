@@ -23,7 +23,7 @@
     --color-text-primary: #737983;
     --color-text-tertiary: #8b949e;
     --color-text-link: #58a6ff;
-    --color-bg-primary: #282c34;
+    --color-bg-primary: #181818;
     --color-bg-secondary: #2c323c;
     --color-bg-tertiary: #161b22;
     --color-border-primary: #30363d;
@@ -33,7 +33,7 @@
     --color-markdown-blockquote-border: #3b434b;
     --color-markdown-table-border: #3b434b;
     --color-markdown-table-tr-border: #272c32;
-    --color-markdown-code-bg: #f0f6fc26;
+    --color-markdown-code-bg: #453d41;
 }
 
 .markdown-body ol ol,
