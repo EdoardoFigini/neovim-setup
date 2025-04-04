@@ -27,6 +27,12 @@ return {
       command_palette = true,
       long_message_to_split = true,
     },
+    cmdline = {
+      enabled = false,
+    },
+    messages = {
+      enabled = false,
+    },
   },
   -- stylua: ignore
   keys = {
