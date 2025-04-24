@@ -1,11 +1,16 @@
 local M = {}
 
-local function command(cmd, dir)
-  return "cd " .. dir .. " && " .. cmd .. ' && cd  "' .. vim.fn.getcwd() .. '"'
-end
-
 local neoconf = require("neoconf")
 local execenv = require("user.execenv")
+
+local function wsl_path(dir)
+  if neoconf.get("build.execenv") ~= "wsl" then return dir end
+  return dir:gsub("(%a):", function(v) return "/mnt/" .. v:lower() end):gsub("\\", "/");
+end
+
+local function command(cmd, dir)
+  return "cd " .. dir .. " && " .. cmd .. ' && cd  "' .. wsl_path(vim.fn.getcwd()) .. '"'
+end
 
 local function set_execenv()
   local env = neoconf.get("build.execenv")
