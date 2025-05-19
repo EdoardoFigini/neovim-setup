@@ -6,10 +6,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-if vim.fn.system("git rev-parse --is-inside-work-tree") then
-  vim.opt.fileformats = "unix,dos,mac"
-end
-
 local local_config = vim.fn.getcwd() .. "/.nvim.lua"
 if vim.fn.filereadable(local_config) == 1 then
   dofile(local_config)
@@ -42,7 +38,7 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = { enabled = false }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
