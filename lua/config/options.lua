@@ -9,3 +9,5 @@ vim.opt.shellredir = "| Out-File -Encoding UTF8 %s"
 vim.opt.shellpipe = "| Out-File -Encoding UTF8 %s"
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
+
+vim.g.autoformat = false
